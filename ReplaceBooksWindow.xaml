@@ -31,6 +31,10 @@
                     <Button x:Name="checkOrder" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Click="Button_Click"
                             Margin="10">
                         Check if order is correct</Button>
+
+                    <materialDesign:Card Name="scoreCard" Visibility="Collapsed">
+                        <TextBox Name="scoreText" Padding="10,10,10,10" Style="{DynamicResource MaterialDesignTextBox}"></TextBox>
+                    </materialDesign:Card>
                 </StackPanel>
             </materialDesign:Card>
         </StackPanel>

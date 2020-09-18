@@ -87,15 +87,56 @@ namespace LibraryLogger
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
+            int score = 0;
             correctOrder.Sort();
             for (int i = 0; i < correctOrder.Count; i++){
                 String temp1 = ReplaceBooksList.Items.GetItemAt(i).ToString(), temp2 = correctOrder.ElementAt(i);
                 if (temp1.Equals(temp2)){
                     correctBooksList.Items.Add(new ListBoxItem { Content = correctOrder.ElementAt(i), Background = Brushes.DarkGreen });
+                    score++;
                 } else{
                     correctBooksList.Items.Add(new ListBoxItem { Content = correctOrder.ElementAt(i), Background = Brushes.DarkRed });
                 }
             }
+            String statement = "";
+            switch (score) {
+                case 0:
+                    statement = "Terrible";
+                    break;
+                case 1: 
+                    statement = "Still not good";
+                    break;
+                case 2:
+                    statement = "Almost not bad";
+                    break;
+                case 3:
+                    statement = "Could be worse I guess";
+                    break;
+                case 4:
+                    statement = "You can do better";
+                    break;
+                case 5:
+                    statement = "This is not the score I was looking for";
+                    break;
+                case 6:
+                    statement = "Eh";
+                    break;
+                case 7:
+                    statement = "Not bad";
+                    break;
+                case 8:
+                    statement = "Pretty good";
+                    break;
+                case 9:
+                    statement = "Noice";
+                    break;
+                case 10:
+                    statement = "5/7";
+                    break;
+            }
+            scoreText.Text = "You scored " + score + "/10. " + statement;
+            scoreCard.Visibility = Visibility.Visible;
+            checkOrder.IsEnabled = false;
         }
     }
 }
