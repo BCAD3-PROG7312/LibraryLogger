@@ -18,7 +18,7 @@ namespace LibraryLogger
     public partial class ReplaceBooksWindow : Window
     {
         public List<String> callNumbers = new List<string>();
-        public List<String> fuckThis = new List<string>();
+        public List<String> correctOrder = new List<string>();
         public Random random = new Random();
 
         public ReplaceBooksWindow()
@@ -47,16 +47,16 @@ namespace LibraryLogger
                     part3 += (char)temp;
                 }
                 callNumbers.Add(part1 + "." + part2 + " " + part3);
+                correctOrder.Add(part1 + "." + part2 + " " + part3);
             }
-            
             ReplaceBooksList.ItemsSource = callNumbers;
-            fuckThis = callNumbers;
 
             Style itemContainerStyle = new Style(typeof(ListBoxItem));
             itemContainerStyle.Setters.Add(new Setter(ListBoxItem.AllowDropProperty, true));
             itemContainerStyle.Setters.Add(new EventSetter(ListBoxItem.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(s_PreviewMouseLeftButtonDown)));
             itemContainerStyle.Setters.Add(new EventSetter(ListBoxItem.DropEvent, new DragEventHandler(ReplaceBooksList_Drop)));
             ReplaceBooksList.ItemContainerStyle = itemContainerStyle;
+            ReplaceBooksList
         }
 
         void s_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e){
@@ -88,12 +88,7 @@ namespace LibraryLogger
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            List<String> correctOrder = callNumbers;
             correctOrder.Sort();
-            if (callNumbers == correctOrder && fuckThis == callNumbers)
-            {
-                callNumbers.Clear();
-            }
             for (int i = 0; i < correctOrder.Count; i++){
                 String temp1 = ReplaceBooksList.Items.GetItemAt(i).ToString(), temp2 = correctOrder.ElementAt(i);
                 if (temp1.Equals(temp2)){

@@ -22,14 +22,14 @@
                                Margin="0,0,0,20" HorizontalAlignment="Center">
                         Replace books</TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <ListBox Name="ReplaceBooksList" 
+                        <ListBox Name="ReplaceBooksList" Style="{DynamicResource MaterialDesignListBox}"
                              ></ListBox>
-                        <ListBox Name="correctBooksList" 
+                        <ListBox Name="correctBooksList" Style="{DynamicResource MaterialDesignListBox}"
                              ></ListBox>
                     </StackPanel>
                     
                     <Button x:Name="checkOrder" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Click="Button_Click"
-                            >
+                            Margin="10">
                         Check if order is correct</Button>
                 </StackPanel>
             </materialDesign:Card>
