@@ -56,7 +56,6 @@ namespace LibraryLogger
             itemContainerStyle.Setters.Add(new EventSetter(ListBoxItem.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(s_PreviewMouseLeftButtonDown)));
             itemContainerStyle.Setters.Add(new EventSetter(ListBoxItem.DropEvent, new DragEventHandler(ReplaceBooksList_Drop)));
             ReplaceBooksList.ItemContainerStyle = itemContainerStyle;
-            ReplaceBooksList
         }
 
         void s_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e){
