@@ -26,11 +26,40 @@ namespace LibraryLogger
             InitializeComponent();
         }
 
-        private void ReplaceBooksClick(object sender, RoutedEventArgs e)
-        {
-            ReplaceBooksWindow window = new ReplaceBooksWindow();
+        private void EasyIdentify_Click(object sender, RoutedEventArgs e) {
+            IdentifyAreas window = new IdentifyAreas(0);
             window.Show();
-            this.Hide();
+            this.Close();
+        }
+
+        private void MediumIdentify_Click(object sender, RoutedEventArgs e) {
+            IdentifyAreas window = new IdentifyAreas(1);
+            window.Show();
+            this.Close();
+        }
+
+        private void HardIdentify_Click(object sender, RoutedEventArgs e) {
+            IdentifyAreas window = new IdentifyAreas(2);
+            window.Show();
+            this.Close();
+        }
+
+        private void EasyReplace_Click(object sender, RoutedEventArgs e) {
+            ReplaceBooksWindow window = new ReplaceBooksWindow(0);
+            window.Show();
+            this.Close();
+        }
+
+        private void MediumReplace_Click(object sender, RoutedEventArgs e) {
+            ReplaceBooksWindow window = new ReplaceBooksWindow(1);
+            window.Show();
+            this.Close();
+        }
+
+        private void HardReplace_Click(object sender, RoutedEventArgs e) {
+            ReplaceBooksWindow window = new ReplaceBooksWindow(2);
+            window.Show();
+            this.Close();
         }
     }
 }

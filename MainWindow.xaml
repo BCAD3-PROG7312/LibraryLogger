@@ -21,13 +21,36 @@
                     <TextBlock  Style="{DynamicResource MaterialDesignHeadline3TextBlock}"
                                Margin="0,0,0,20" HorizontalAlignment="Center">
                         LibrarianLogger</TextBlock>
-                    <Button Name="ReplaceBooks" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
-                            FontSize="22" Padding="10" Margin="10" Height="auto" Click="ReplaceBooksClick">
-                        Replace Book</Button>
-                    <Button IsEnabled="False" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
-                            FontSize="22" Padding="10" Margin="10" Height="auto">
-                        Identify Area</Button>
-                    <Button IsEnabled="False" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                    <Expander Style="{DynamicResource MaterialDesignExpander}">
+                        <Expander.Header>Replace Books</Expander.Header>
+                        <StackPanel>
+                            <Button Name="EasyReplace" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="EasyReplace_Click">
+                                Easy</Button>
+                            <Button Name="MediumReplace" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="MediumReplace_Click">
+                                Medium</Button>
+                            <Button Name="HardReplace" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="HardReplace_Click">
+                                Hard</Button>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Style="{DynamicResource MaterialDesignExpander}">
+                        <Expander.Header>Identify Area</Expander.Header>
+                        <StackPanel>
+                            <Button Name="EasyIdentify" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="EasyIdentify_Click">
+                                Easy</Button>
+                            <Button Name="MediumIdentify" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="MediumIdentify_Click">
+                                Medium</Button>
+                            <Button Name="HardIdentify" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="HardIdentify_Click">
+                                Hard</Button>
+                        </StackPanel>
+                    </Expander>
+                    
+                    <Button Name="ReplacingBooks" IsEnabled="False" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
                             FontSize="22" Padding="10" Margin="10" Height="auto">
                         Replacing Books</Button>
                 </StackPanel>

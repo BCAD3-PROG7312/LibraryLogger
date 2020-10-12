@@ -1,4 +1,4 @@
-﻿<Window x:Class="LibraryLogger.ReplaceBooksWindow"
+﻿<Window x:Class="LibraryLogger.IdentifyAreas"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,22 +13,30 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Replace Books" Height="auto" Width="auto" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="IdentifyAreas" Height="auto" Width="auto" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
             <materialDesign:Card Padding="32" Margin="16">
                 <StackPanel>
+
                     <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">
-                        Replace Books</TextBlock>
+                        Identify Areas</TextBlock>
                     <TextBlock Name="timer" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline3TextBlock}">
+                        <TextBlock.Effect>
+                            <DropShadowEffect/>
+                        </TextBlock.Effect>
                         00:00:00</TextBlock>
-                    <StackPanel Orientation="Horizontal" Width="300">
-                        <ListBox Width="150" Name="ReplaceBooksList" Style="{DynamicResource MaterialDesignListBox}">
+
+                    <StackPanel Orientation="Horizontal" Width="auto">
+                        <ListBox Width="auto" x:Name="FirstList" Style="{DynamicResource MaterialDesignListBox}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel HorizontalAlignment="Center"/>
-                                </ItemsPanelTemplate></ListBox.ItemsPanel></ListBox>
-                        <ListBox Width="150" Name="correctBooksList" Style="{DynamicResource MaterialDesignListBox}">
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                        </ListBox>
+
+                        <ListBox Width="auto" x:Name="SecondList" Style="{DynamicResource MaterialDesignListBox}" UseLayoutRounding="False">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel HorizontalAlignment="Center"/>
@@ -36,8 +44,8 @@
                             </ListBox.ItemsPanel>
                         </ListBox>
                     </StackPanel>
-                    
-                    <Button x:Name="checkOrder" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Click="Button_Click"
+
+                    <Button Name="checkColumns" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Click="checkColumns_Click"
                             Margin="10">
                         Check if order is correct</Button>
 
@@ -45,11 +53,11 @@
                         <TextBlock Name="scoreText" HorizontalAlignment="Center" Padding="10"  Style="{DynamicResource MaterialDesignBody1TextBlock}"></TextBlock>
                     </materialDesign:Card>
 
-                    <Button x:Name="reset" Background="Yellow" Visibility="Collapsed" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="reset_Click_1"
+                    <Button x:Name="reset" Background="Yellow" Visibility="Collapsed" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="reset_Click"
                             Width="200" Margin="10">
                         Reset</Button>
 
-                    <Button x:Name="goBack" Background="White" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="goBack_Click_1"
+                    <Button x:Name="goBack" Background="White" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="goBack_Click"
                             Width="200" Margin="10">
                         Back</Button>
                 </StackPanel>
