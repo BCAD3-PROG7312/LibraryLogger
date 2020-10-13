@@ -16,15 +16,17 @@
         Title="IdentifyAreas" Width="auto" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Orientation="Horizontal" >
-            <materialDesign:Card x:Name="gameCard" Padding="30" Margin="15" Width="400" Height="auto">
+            <materialDesign:Card x:Name="gameCard" Padding="20" Margin="15" Width="400" Height="auto">
                 <StackPanel>
                     <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">
-                        Identify Areas</TextBlock>
-                    <TextBlock Name="timer" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline3TextBlock}">
                         <TextBlock.Effect>
                             <DropShadowEffect/>
                         </TextBlock.Effect>
+                        Identify Areas</TextBlock>
+                    <TextBlock Name="timer" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline3TextBlock}" Height="50">
                         00:00:00</TextBlock>
+                    <TextBlock Name="instruction" FontSize="10" Height="20" HorizontalAlignment="Center">
+                        Drag and drop the items in the correct order</TextBlock>
 
                     <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
                         <ListBox Width="auto" x:Name="FirstList" Style="{DynamicResource MaterialDesignListBox}">
@@ -45,15 +47,15 @@
                     </StackPanel>
 
                     <Button Name="checkColumns" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Click="checkColumns_Click"
-                            Margin="10">
+                            Margin="10,20,10,10">
                         Check if order is correct</Button>
 
                     <Button x:Name="reset" Background="Yellow" Visibility="Collapsed" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="reset_Click"
-                            Width="200" Margin="10">
+                            Width="200" Margin="10,20,10,10">
                         Reset</Button>
 
                     <Button x:Name="goBack" Background="White" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="goBack_Click"
-                            Width="200" Margin="10">
+                            Width="200" Margin="10,5,10,10">
                         Back</Button>
                 </StackPanel>
             </materialDesign:Card>
