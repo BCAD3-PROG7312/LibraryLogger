@@ -1,4 +1,5 @@
 ﻿using LibraryLogger.Functions;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +27,15 @@ namespace LibraryLogger
         public ListboxFunctions listboxFunctions = new ListboxFunctions();
 
         public Dictionary<string, string> callNumbers;
-        public Dictionary<string, string> userColumns = new Dictionary<string, string>();
 
         public int correct;
         public int matches;
         public int timeCounter;
         public int chooseList;
         public int difficulty;
+
+        public List<int> scores = new List<int>();
+        public List<Card> scoreCards = new List<Card>();
 
         DispatcherTimer _timer;
         TimeSpan _time;
@@ -72,6 +75,7 @@ namespace LibraryLogger
                     values = callNumbers.Values.OrderBy(a => Guid.NewGuid()).ToList();
                     FirstList.ItemsSource = keys;
                     SecondList.ItemsSource = values;
+                    listboxFunctions.enableDragAndDrop(SecondList, values, (Style)FindResource("MaterialDesignListBoxItem"));
                     break;
                 case 1:
                     SecondList.ItemsSource = null;
@@ -79,11 +83,27 @@ namespace LibraryLogger
                     values = callNumbers.Values.Take(matches).ToList();
                     FirstList.ItemsSource = values;
                     SecondList.ItemsSource = keys;
+                    listboxFunctions.enableDragAndDrop(SecondList, keys, (Style)FindResource("MaterialDesignListBoxItem"));
                     break;
             }
-
             initTimer();
-            listboxFunctions.enableDragAndDrop(SecondList, values, (Style)FindResource("MaterialDesignListBoxItem"));
+        }
+
+        public Card getScoreCard(String score) {
+            TextBlock text = new TextBlock();
+            text.HorizontalAlignment = HorizontalAlignment.Center;
+            text.Padding = new Thickness(10, 10, 10, 10);
+            text.Style = (Style)FindResource("MaterialDesignBody2TextBlock");
+            text.Text = score;
+            text.Foreground = Brushes.Black;
+            text.TextWrapping = TextWrapping.Wrap;
+
+            Card card = new Card();
+            card.Margin = new Thickness(5, 5, 5, 5);
+            card.Background = Brushes.WhiteSmoke;
+            card.Content = text;
+
+            return card;
         }
 
         public void initTimer() {
@@ -111,14 +131,12 @@ namespace LibraryLogger
         public void checkScore() {
             SecondList.ItemContainerStyle = null;
             SecondList.ItemsSource = null;
-            userColumns.Clear();
             correct = 0;
 
             switch (chooseList) {
                 case 0:
                     for (int i = 0; i < matches; i++) {
-                        userColumns.Add(keys[i], values[i]);
-                        if (userColumns.Values.ElementAt(i) == callNumbers.Values.ElementAt(i)) {
+                        if (values[i] == callNumbers.Values.ElementAt(i)) {
                             SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i), Background = Brushes.DarkGreen });
                             correct++;
                         } else {
@@ -127,9 +145,10 @@ namespace LibraryLogger
                     }
                     break;
                 case 1:
+                    List<String> temp = new List<String>();
+                    temp = randomGen.generateCallNumberDescriptions(keys);
                     for (int i = 0; i < matches; i++) {
-                        userColumns.Add(keys[i], values[i]);
-                        if (userColumns.Keys.ElementAt(i) == callNumbers.Keys.ElementAt(i)) {
+                        if (temp[i] == callNumbers.Values.ElementAt(i)) {
                             SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Keys.ElementAt(i), Background = Brushes.DarkGreen });
                             correct++;
                         } else {
@@ -138,10 +157,15 @@ namespace LibraryLogger
                     }
                     break;
             }
-            
-            scoreText.Text = $"You scored {correct}/{matches}. {score.getScoreStatement(correct, matches)}";
+            scoresPanel.Visibility = Visibility.Visible;
+            historyPanel.Children.Add(getScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}"));
 
-            scoreCard.Visibility = Visibility.Visible;
+            Double tempScore = (Double)correct / (Double)matches;
+            tempScore *= 100;
+            scores.Add((int)tempScore);
+            averageScore.Text = $"{(int)scores.Average()}%";
+            testsTaken.Text = scores.Count().ToString();
+
             checkColumns.Visibility = Visibility.Collapsed;
             reset.Visibility = Visibility.Visible;
         }
@@ -161,7 +185,6 @@ namespace LibraryLogger
             callNumbers = null;
             keys = new List<string>();
             values = new List<string>();
-            scoreCard.Visibility = Visibility.Collapsed;
             checkColumns.Visibility = Visibility.Visible;
             reset.Visibility = Visibility.Collapsed;
             init(difficulty);

@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Replace Books" Height="auto" Width="auto" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <StackPanel>
+        <StackPanel Orientation="Horizontal">
             <materialDesign:Card Padding="32" Margin="16">
                 <StackPanel>
                     <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">
@@ -36,14 +36,10 @@
                             </ListBox.ItemsPanel>
                         </ListBox>
                     </StackPanel>
-                    
+
                     <Button x:Name="checkOrder" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Click="Button_Click"
                             Margin="10">
                         Check if order is correct</Button>
-
-                    <materialDesign:Card Name="scoreCard" Visibility="Collapsed" Margin="5">
-                        <TextBlock Name="scoreText" HorizontalAlignment="Center" Padding="10"  Style="{DynamicResource MaterialDesignBody1TextBlock}"></TextBlock>
-                    </materialDesign:Card>
 
                     <Button x:Name="reset" Background="Yellow" Visibility="Collapsed" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="reset_Click_1"
                             Width="200" Margin="10">
@@ -54,6 +50,110 @@
                         Back</Button>
                 </StackPanel>
             </materialDesign:Card>
+            <StackPanel x:Name="scoresPanel" Width="300" Margin="16" Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <materialDesign:Card Background="GhostWhite" Width="80" Height="80" Padding="8" Margin="10,0">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="TESTS" HorizontalAlignment="Center" FontSize="10" Foreground="Black"/>
+                            <TextBlock x:Name="testsTaken" HorizontalAlignment="Center" Foreground="Black" Text="20" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Background="GhostWhite" Width="80" Height="80" Padding="8" Margin="10,0">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="AVERAGE" HorizontalAlignment="Center" FontSize="10" Foreground="Black"/>
+                            <TextBlock x:Name="averageScore" HorizontalAlignment="Center" Foreground="Black" Text="20%" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                <materialDesign:Card Height="auto" Name="historyCard" Padding="16" Margin="16" >
+                    <ScrollViewer Name="scrollView" MaxHeight="350" CanContentScroll="True" VerticalScrollBarVisibility="Visible">
+                        <ScrollViewer.Style>
+                            <Style TargetType="{x:Type ScrollViewer}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                            <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Rectangle x:Name="PART_Corner" Grid.Column="1" Fill="{DynamicResource MaterialDesignSelection}" Grid.Row="1" Visibility="{Binding (materialDesign:ScrollViewerAssist.CornerRectangleVisibility), RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
+                                                <Separator x:Name="PART_TopSeparator" Background="{DynamicResource MaterialDesignSelection}" Grid.Column="0" Margin="0" Opacity="0.4" Grid.Row="0" Visibility="Visible" VerticalAlignment="Top"/>
+                                                <Separator x:Name="PART_BottomSeparator" Background="{DynamicResource MaterialDesignSelection}" Grid.Column="0" Margin="0" Opacity="0.4" Grid.Row="0" Visibility="Hidden" VerticalAlignment="Bottom"/>
+                                                <ScrollBar Style="{DynamicResource MaterialDesignScrollBarMinimal}" x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
+                                                <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="materialDesign:ScrollViewerAssist.ShowSeparators" Value="True"/>
+                                                        <Condition Property="ComputedVerticalScrollBarVisibility" Value="Visible"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter Property="Visibility" TargetName="PART_BottomSeparator" Value="Visible"/>
+                                                </MultiTrigger>
+                                                <Trigger Property="VerticalOffset" Value="0">
+                                                    <Setter Property="Visibility" TargetName="PART_TopSeparator" Value="Hidden"/>
+                                                </Trigger>
+                                                <Trigger Property="materialDesign:ScrollViewerAssist.ShowSeparators" Value="False">
+                                                    <Setter Property="Visibility" TargetName="PART_TopSeparator" Value="Hidden"/>
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="materialDesign:ScrollViewerAssist.IsAutoHideEnabled" Value="True"/>
+                                                        <Condition Property="ComputedVerticalScrollBarVisibility" Value="Visible"/>
+                                                        <Condition Property="IsMouseOver" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <MultiTrigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_VerticalScrollBar"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </MultiTrigger.EnterActions>
+                                                    <MultiTrigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_VerticalScrollBar"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </MultiTrigger.ExitActions>
+                                                </MultiTrigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="materialDesign:ScrollViewerAssist.IsAutoHideEnabled" Value="True"/>
+                                                        <Condition Property="ComputedHorizontalScrollBarVisibility" Value="Visible"/>
+                                                        <Condition Property="IsMouseOver" Value="False"/>
+                                                    </MultiTrigger.Conditions>
+                                                    <MultiTrigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_HorizontalScrollBar"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </MultiTrigger.EnterActions>
+                                                    <MultiTrigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_HorizontalScrollBar"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </MultiTrigger.ExitActions>
+                                                </MultiTrigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ScrollViewer.Style>
+                        <StackPanel x:Name="historyPanel"/>
+                    </ScrollViewer>
+                </materialDesign:Card>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

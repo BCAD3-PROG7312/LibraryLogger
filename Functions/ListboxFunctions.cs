@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace LibraryLogger.Functions {
     public class ListboxFunctions {
         public ListBox temp;
-        public List<String> tempList;
+        public List<String> tempList = new List<String>();
         public void enableDragAndDrop(ListBox listBox, List<String> vs, Style listBoxItem) {
             Style itemContainerStyle = new Style(typeof(ListBoxItem));
             itemContainerStyle.Setters.Add(new Setter(ListBoxItem.AllowDropProperty, true));

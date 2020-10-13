@@ -421,9 +421,6 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebEssentials.AspNetCore.Pwa, Version=1.0.65.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\WebEssentials.AspNetCore.PWA.1.0.65\lib\netstandard2.0\WebEssentials.AspNetCore.Pwa.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

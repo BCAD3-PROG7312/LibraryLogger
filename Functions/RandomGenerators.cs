@@ -8,7 +8,7 @@ namespace LibraryLogger.Functions
 {
     public class RandomGenerators{
         public List<String> callNumbers; 
-        public List<String> callNumbersDescriptions = new List<string>();
+        public List<String> callNumbersDescriptions;
         public Random random = new Random();
 
         public Dictionary<string, string> generateNumbersAndDescription(int items) {
@@ -41,7 +41,7 @@ namespace LibraryLogger.Functions
                     part2 = "00" + part2;
                 }
                 String part3 = "";
-                for (int k = 0; k < 3; k++) {
+                for (int k = 0; k < 3; k++) { 
                     int temp = random.Next(65, 90);
                     part3 += (char)temp;
                 }
@@ -51,6 +51,7 @@ namespace LibraryLogger.Functions
         }
 
         public List<String> generateCallNumberDescriptions(List<String> numbers) {
+            callNumbersDescriptions = new List<string>();
             foreach (String item in numbers) {
                 String description;
                 String name = item.Substring(item.Length - 3);
@@ -58,31 +59,31 @@ namespace LibraryLogger.Functions
                     case int n when (n < 100 && n > 0):
                         description = "Computer science, knowledge & systems";
                         break;
-                    case int n when (n < 200 && n > 100):
+                    case int n when (n < 200 && n >= 100):
                         description = "Philosophy & psychology";
                         break;
-                    case int n when (n < 300 && n > 200):
+                    case int n when (n < 300 && n >= 200):
                         description = "Religion";
                         break;
-                    case int n when (n < 400 && n > 300):
+                    case int n when (n < 400 && n >= 300):
                         description = "Social sciences";
                         break;
-                    case int n when (n < 500 && n > 400):
+                    case int n when (n < 500 && n >= 400):
                         description = "Language";
                         break;
-                    case int n when (n < 600 && n > 500):
+                    case int n when (n < 600 && n >= 500):
                         description = "Science";
                         break;
-                    case int n when (n < 700 && n > 600):
+                    case int n when (n < 700 && n >= 600):
                         description = "Technology";
                         break;
-                    case int n when (n < 800 && n > 700):
+                    case int n when (n < 800 && n >= 700):
                         description = "Arts & recreation";
                         break;
-                    case int n when (n < 900 && n > 800):
+                    case int n when (n < 900 && n >= 800):
                         description = "Literature";
                         break;
-                    case int n when (n < 1000 && n > 900):
+                    case int n when (n < 1000 && n >= 900):
                         description = "History & geography";
                         break;
                     default:

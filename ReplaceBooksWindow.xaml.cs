@@ -1,4 +1,5 @@
 ﻿using LibraryLogger.Functions;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace LibraryLogger
         public int matches;
         public int timeCounter;
         public int difficulty;
+
+        public List<int> scores = new List<int>();
+        public List<Card> scoreCards = new List<Card>();
 
         DispatcherTimer _timer;
         TimeSpan _time;
@@ -63,6 +67,23 @@ namespace LibraryLogger
             listboxFunctions.enableDragAndDrop(ReplaceBooksList, callNumbers, (Style)FindResource("MaterialDesignListBoxItem"));
         }
 
+        public Card getScoreCard(String score) {
+            TextBlock text = new TextBlock();
+            text.HorizontalAlignment = HorizontalAlignment.Center;
+            text.Padding = new Thickness(10, 10, 10, 10);
+            text.Style = (Style)FindResource("MaterialDesignBody2TextBlock");
+            text.Text = score;
+            text.Foreground = Brushes.Black;
+            text.TextWrapping = TextWrapping.Wrap;
+
+            Card card = new Card();
+            card.Margin = new Thickness(5, 5, 5, 5);
+            card.Background = Brushes.WhiteSmoke;
+            card.Content = text;
+
+            return card;
+        }
+
         public void initTimer() {
             _time = TimeSpan.FromSeconds(timeCounter);
 
@@ -92,9 +113,15 @@ namespace LibraryLogger
                     correctBooksList.Items.Add(new ListBoxItem { Content = correctOrder.ElementAt(i), Background = Brushes.DarkRed });
                 }
             }
-            scoreText.Text = $"You scored {correct}/{matches}. {score.getScoreStatement(correct, matches)}";
+            scoresPanel.Visibility = Visibility.Visible;
+            historyPanel.Children.Add(getScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}"));
 
-            scoreCard.Visibility = Visibility.Visible;
+            Double tempScore = (Double)correct / (Double)matches;
+            tempScore *= 100;
+            scores.Add((int)tempScore);
+            averageScore.Text = $"{(int)scores.Average()}%";
+            testsTaken.Text = scores.Count().ToString();
+
             checkOrder.Visibility = Visibility.Collapsed;
             reset.Visibility = Visibility.Visible;
         }
@@ -113,7 +140,6 @@ namespace LibraryLogger
             callNumbers = new List<string>();
             correctOrder.Clear();
             correctOrder = new List<string>();
-            scoreCard.Visibility = Visibility.Collapsed;
             checkOrder.Visibility = Visibility.Visible;
             reset.Visibility = Visibility.Collapsed;
             init(difficulty);
