@@ -28,7 +28,7 @@ namespace LibraryLogger.Functions {
                     statement = "You can do better";
                     break;
                 case 5:
-                    statement = "This is not the score I was looking for";
+                    statement = "Not the score I was looking for";
                     break;
                 case 6:
                     statement = "Eh";

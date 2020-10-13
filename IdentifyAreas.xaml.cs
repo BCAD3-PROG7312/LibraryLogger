@@ -44,22 +44,28 @@ namespace LibraryLogger
         {
             InitializeComponent();
             this.difficulty = difficulty;
-            init(this.difficulty);
+            init();
         }
 
-        public void init(int difficulty) {
+        public void init() {
             switch (difficulty) {
                 case 0:
                     matches = 4;
                     timeCounter = 300;
+                    scrollView.MaxHeight = 346;
+                    scrollView.Height = 345.5;
                     break;
                 case 1:
                     matches = 7;
                     timeCounter = 150;
+                    scrollView.MaxHeight = 441;
+                    scrollView.Height = 440.5;
                     break;
                 case 2:
                     matches = 10;
                     timeCounter = 60;
+                    scrollView.MaxHeight = 536;
+                    scrollView.Height = 535.5;
                     break;
                 default:
                     matches = 4;
@@ -187,7 +193,7 @@ namespace LibraryLogger
             values = new List<string>();
             checkColumns.Visibility = Visibility.Visible;
             reset.Visibility = Visibility.Collapsed;
-            init(difficulty);
+            init();
         }
     }
 }

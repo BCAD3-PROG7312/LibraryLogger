@@ -16,7 +16,7 @@
         Title="Replace Books" Height="auto" Width="auto" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <materialDesign:Card Padding="32" Margin="16">
+            <materialDesign:Card Name="gameCard" Padding="30" Margin="15" Height="auto">
                 <StackPanel>
                     <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">
                         Replace Books</TextBlock>
@@ -50,7 +50,7 @@
                         Back</Button>
                 </StackPanel>
             </materialDesign:Card>
-            <StackPanel x:Name="scoresPanel" Width="300" Margin="16" Visibility="Collapsed">
+            <StackPanel x:Name="scoresPanel" Width="300" Margin="0,15,15,15" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <materialDesign:Card Background="GhostWhite" Width="80" Height="80" Padding="8" Margin="10,0">
                         <StackPanel VerticalAlignment="Center">
@@ -65,8 +65,8 @@
                         </StackPanel>
                     </materialDesign:Card>
                 </StackPanel>
-                <materialDesign:Card Height="auto" Name="historyCard" Padding="16" Margin="16" >
-                    <ScrollViewer Name="scrollView" MaxHeight="350" CanContentScroll="True" VerticalScrollBarVisibility="Visible">
+                <materialDesign:Card Height="auto" Name="historyCard" Padding="15" Margin="0,15,0,0">
+                    <ScrollViewer Name="scrollView" CanContentScroll="True" VerticalScrollBarVisibility="Auto">
                         <ScrollViewer.Style>
                             <Style TargetType="{x:Type ScrollViewer}">
                                 <Setter Property="Template">

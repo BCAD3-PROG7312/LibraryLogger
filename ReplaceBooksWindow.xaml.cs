@@ -42,14 +42,20 @@ namespace LibraryLogger
                 case 0:
                     matches = 5;
                     timeCounter = 300;
+                    scrollView.MaxHeight = 283;
+                    scrollView.Height = 282.5;
                     break;
                 case 1:
                     matches = 10;
                     timeCounter = 150;
+                    scrollView.MaxHeight = 441;
+                    scrollView.Height = 440.5;
                     break;
                 case 2:
                     matches = 15;
                     timeCounter = 60;
+                    scrollView.MaxHeight = 599;
+                    scrollView.Height = 598.5;
                     break;
                 default:
                     matches = 5;
@@ -58,7 +64,6 @@ namespace LibraryLogger
             }
 
             initTimer();
-
             callNumbers = randomGen.generateRandomCallNumbers(matches);
             correctOrder.AddRange(callNumbers);
 
