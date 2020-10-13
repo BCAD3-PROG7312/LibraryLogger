@@ -61,5 +61,23 @@ namespace LibraryLogger
             window.Show();
             this.Close();
         }
+
+        private void EasyBooks_Click(object sender, RoutedEventArgs e) {
+            /*ReplaceBooksWindow window = new ReplaceBooksWindow(2);
+            window.Show();
+            this.Close();*/
+        }
+
+        private void MediumBooks_Click(object sender, RoutedEventArgs e) {
+            /*ReplaceBooksWindow window = new ReplaceBooksWindow(2);
+            window.Show();
+            this.Close();*/
+        }
+
+        private void HardBooks_Click(object sender, RoutedEventArgs e) {
+            /*ReplaceBooksWindow window = new ReplaceBooksWindow(2);
+            window.Show();
+            this.Close();*/
+        }
     }
 }

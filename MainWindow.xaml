@@ -49,10 +49,21 @@
                                 Hard</Button>
                         </StackPanel>
                     </Expander>
-                    
-                    <Button Name="ReplacingBooks" IsEnabled="False" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
-                            FontSize="22" Padding="10" Margin="10" Height="auto">
-                        Replacing Books</Button>
+
+                    <Expander Style="{DynamicResource MaterialDesignExpander}" IsEnabled="False">
+                        <Expander.Header>Replacing Books</Expander.Header>
+                        <StackPanel>
+                            <Button Name="EasyBooks" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="EasyBooks_Click">
+                                Easy</Button>
+                            <Button Name="MediumBooks" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="MediumBooks_Click">
+                                Medium</Button>
+                            <Button Name="HardBooks" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="HardBooks_Click">
+                                Hard</Button>
+                        </StackPanel>
+                    </Expander>
                 </StackPanel>
             </materialDesign:Card>
         </StackPanel>
