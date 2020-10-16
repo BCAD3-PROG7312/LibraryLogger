@@ -12,6 +12,7 @@ namespace LibraryLogger
 {
     public partial class ReplaceBooksWindow : Window
     {
+        public Dictionary<String, DeweyDecimalSystem> items = new Dictionary<string, DeweyDecimalSystem>();
         public List<String> callNumbers = new List<string>();
         public List<String> correctOrder = new List<string>();
 
@@ -64,8 +65,11 @@ namespace LibraryLogger
             }
 
             initTimer();
-            callNumbers = randomGen.generateRandomCallNumbers(matches);
-            correctOrder.AddRange(callNumbers);
+            items = randomGen.generateNumbersAndDescription(matches);
+            for (int i = 0; i < items.Count; i++) {
+                callNumbers.Add(items.Keys.ElementAt(i));
+                correctOrder.Add(items.Keys.ElementAt(i));
+            }
 
             ReplaceBooksList.ItemsSource = callNumbers;
 

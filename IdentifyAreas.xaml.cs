@@ -19,14 +19,13 @@ namespace LibraryLogger
 {
     public partial class IdentifyAreas : Window
     {
+        public Dictionary<String, DeweyDecimalSystem> callNumbers = new Dictionary<string, DeweyDecimalSystem>();
         public List<string> values = new List<string>();
         public List<string> keys = new List<string>();
 
         public RandomGenerators randomGen = new RandomGenerators();
         public Score score = new Score();
         public ListboxFunctions listboxFunctions = new ListboxFunctions();
-
-        public Dictionary<string, string> callNumbers;
 
         public int correct;
         public int matches;
@@ -72,13 +71,16 @@ namespace LibraryLogger
                     timeCounter = 300;
                     break;
             }
-
             callNumbers = randomGen.generateNumbersAndDescription(matches + 3);
             chooseList = randomGen.chooseList();
             switch (chooseList) {
                 case 0:
                     keys = callNumbers.Keys.Take(matches).ToList();
-                    values = callNumbers.Values.OrderBy(a => Guid.NewGuid()).ToList();
+                    foreach (DeweyDecimalSystem item in callNumbers.Values) {
+                        values.Add(item.High1);
+                    }
+                    values = values.OrderBy(a => Guid.NewGuid()).ToList();
+
                     FirstList.ItemsSource = keys;
                     SecondList.ItemsSource = values;
                     listboxFunctions.enableDragAndDrop(SecondList, values, (Style)FindResource("MaterialDesignListBoxItem"));
@@ -86,8 +88,11 @@ namespace LibraryLogger
                 case 1:
                     SecondList.ItemsSource = null;
                     keys = callNumbers.Keys.OrderBy(a => Guid.NewGuid()).ToList();
-                    values = callNumbers.Values.Take(matches).ToList();
-                    FirstList.ItemsSource = values;
+                    foreach (DeweyDecimalSystem item in callNumbers.Values) {
+                        values.Add(item.High1);
+                    }
+
+                    FirstList.ItemsSource = values.Take(matches);
                     SecondList.ItemsSource = keys;
                     listboxFunctions.enableDragAndDrop(SecondList, keys, (Style)FindResource("MaterialDesignListBoxItem"));
                     break;
@@ -142,7 +147,7 @@ namespace LibraryLogger
             switch (chooseList) {
                 case 0:
                     for (int i = 0; i < matches; i++) {
-                        if (values[i] == callNumbers.Values.ElementAt(i)) {
+                        if (values[i] == callNumbers.Values.ElementAt(i).High1) {
                             SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i), Background = Brushes.DarkGreen });
                             correct++;
                         } else {
@@ -152,9 +157,11 @@ namespace LibraryLogger
                     break;
                 case 1:
                     List<String> temp = new List<String>();
-                    temp = randomGen.generateCallNumberDescriptions(keys);
+                    foreach(String item in keys) {
+                        temp.Add(randomGen.generateDescriptions(item).High1);
+                    }
                     for (int i = 0; i < matches; i++) {
-                        if (temp[i] == callNumbers.Values.ElementAt(i)) {
+                        if (temp[i] == callNumbers.Values.ElementAt(i).High1) {
                             SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Keys.ElementAt(i), Background = Brushes.DarkGreen });
                             correct++;
                         } else {
