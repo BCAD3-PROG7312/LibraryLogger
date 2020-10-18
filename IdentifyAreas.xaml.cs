@@ -43,10 +43,10 @@ namespace LibraryLogger
         {
             InitializeComponent();
             this.difficulty = difficulty;
-            init();
+            Init();
         }
 
-        public void init() {
+        public void Init() {
             switch (difficulty) {
                 case 0:
                     matches = 4;
@@ -97,10 +97,10 @@ namespace LibraryLogger
                     listboxFunctions.enableDragAndDrop(SecondList, keys, (Style)FindResource("MaterialDesignListBoxItem"));
                     break;
             }
-            initTimer();
+            InitTimer();
         }
 
-        public Card getScoreCard(String score) {
+        public Card GetScoreCard(String score) {
             TextBlock text = new TextBlock();
             text.HorizontalAlignment = HorizontalAlignment.Center;
             text.Padding = new Thickness(10, 10, 10, 10);
@@ -117,7 +117,7 @@ namespace LibraryLogger
             return card;
         }
 
-        public void initTimer() {
+        public void InitTimer() {
             _time = TimeSpan.FromSeconds(timeCounter);
 
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
@@ -125,7 +125,7 @@ namespace LibraryLogger
                 timer.Text = _time.ToString("c");
                 if (_time == TimeSpan.Zero) {
                     _timer.Stop();
-                    checkScore();
+                    CheckScore();
                     timer.Visibility = Visibility.Collapsed;
                 }
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
@@ -134,12 +134,12 @@ namespace LibraryLogger
             _timer.Start();
         }
 
-        private void checkColumns_Click(object sender, RoutedEventArgs e) {
+        private void CheckColumns_Click(object sender, RoutedEventArgs e) {
             _timer.IsEnabled = false;
-            checkScore();
+            CheckScore();
         }
 
-        public void checkScore() {
+        public void CheckScore() {
             SecondList.ItemContainerStyle = null;
             SecondList.ItemsSource = null;
             correct = 0;
@@ -148,10 +148,10 @@ namespace LibraryLogger
                 case 0:
                     for (int i = 0; i < matches; i++) {
                         if (values[i] == callNumbers.Values.ElementAt(i).High1) {
-                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i), Background = Brushes.DarkGreen });
+                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i).High1, Background = Brushes.DarkGreen });
                             correct++;
                         } else {
-                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i), Background = Brushes.DarkRed });
+                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i).High1, Background = Brushes.DarkRed });
                         }
                     }
                     break;
@@ -171,7 +171,7 @@ namespace LibraryLogger
                     break;
             }
             scoresPanel.Visibility = Visibility.Visible;
-            historyPanel.Children.Add(getScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}"));
+            historyPanel.Children.Add(GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}"));
 
             Double tempScore = (Double)correct / (Double)matches;
             tempScore *= 100;
@@ -183,13 +183,13 @@ namespace LibraryLogger
             reset.Visibility = Visibility.Visible;
         }
 
-        private void goBack_Click(object sender, RoutedEventArgs e) {
+        private void GoBack_Click(object sender, RoutedEventArgs e) {
             MainWindow window = new MainWindow();
             window.Show();
             this.Close();
         }
 
-        private void reset_Click(object sender, RoutedEventArgs e) {
+        private void Reset_Click(object sender, RoutedEventArgs e) {
             FirstList.ItemsSource = null;
             FirstList.Items.Clear();
             SecondList.ItemsSource = null;
@@ -200,7 +200,7 @@ namespace LibraryLogger
             values = new List<string>();
             checkColumns.Visibility = Visibility.Visible;
             reset.Visibility = Visibility.Collapsed;
-            init();
+            Init();
         }
     }
 }

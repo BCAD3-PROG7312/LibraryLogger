@@ -16,8 +16,8 @@
         Title="IdentifyAreas" Width="auto" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Orientation="Horizontal" >
-            <materialDesign:Card x:Name="gameCard" Padding="20" Margin="15" Width="400" Height="auto">
-                <StackPanel>
+            <materialDesign:Card x:Name="gameCard" Padding="20" Margin="15" Width="450" Height="auto">
+                <StackPanel >
                     <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">
                         <TextBlock.Effect>
                             <DropShadowEffect/>
@@ -46,17 +46,21 @@
                         </ListBox>
                     </StackPanel>
 
-                    <Button Name="checkColumns" Style="{DynamicResource MaterialDesignRaisedDarkButton}" Click="checkColumns_Click"
-                            Margin="10,20,10,10">
-                        Check if order is correct</Button>
+                    <Button Name="checkColumns"  Click="CheckColumns_Click" BorderThickness="2"
+                            Margin="10,20,10,10" Width="250" Background="WhiteSmoke" BorderBrush="DarkSeaGreen">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock VerticalAlignment="Center" Foreground="Green">CHECK ORDER</TextBlock>
+                            <Image Source="checked.png" Width="auto" Height="auto" VerticalAlignment="Center" />
+                        </StackPanel>
+                        </Button>
 
-                    <Button x:Name="reset" Background="Yellow" Visibility="Collapsed" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="reset_Click"
+                    <Button x:Name="reset" Background="Yellow" Visibility="Collapsed" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="Reset_Click"
                             Width="200" Margin="10,20,10,10">
-                        Reset</Button>
+                        RESET</Button>
 
-                    <Button x:Name="goBack" Background="White" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="goBack_Click"
+                    <Button x:Name="goBack" Foreground="Red" Background="White" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="GoBack_Click"
                             Width="200" Margin="10,5,10,10">
-                        Back</Button>
+                        BACK</Button>
                 </StackPanel>
             </materialDesign:Card>
             <StackPanel x:Name="scoresPanel" Width="300" Margin="0,15,15,15" Visibility="Collapsed">

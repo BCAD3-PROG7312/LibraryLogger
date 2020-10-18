@@ -135,11 +135,6 @@ namespace LibraryLogger
             reset.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
-            _timer.IsEnabled = false;
-            checkScore();
-        }
-
         private void reset_Click_1(object sender, RoutedEventArgs e) {
             ReplaceBooksList.ItemsSource = null;
             ReplaceBooksList.Items.Clear();
@@ -158,6 +153,11 @@ namespace LibraryLogger
             MainWindow window = new MainWindow();
             window.Show();
             this.Close();
+        }
+
+        private void checkOrder_Click(object sender, RoutedEventArgs e) {
+            _timer.IsEnabled = false;
+            checkScore();
         }
     }
 }
