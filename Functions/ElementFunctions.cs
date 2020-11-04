@@ -78,7 +78,7 @@ namespace LibraryLogger.Functions {
                 VerticalAlignment = VerticalAlignment.Center,
                 Padding = new Thickness(5),
                 Style = style,
-                Text = no + "#",
+                Text = (no+1) + "#",
                 FontSize = 10,
                 Foreground = Brushes.DarkGray,
                 TextWrapping = TextWrapping.Wrap

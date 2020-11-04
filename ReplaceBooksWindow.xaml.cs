@@ -8,16 +8,13 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace LibraryLogger
-{
-    public partial class ReplaceBooksWindow : Window
-    {
+namespace LibraryLogger {
+    public partial class ReplaceBooksWindow : Window {
         public Dictionary<String, DeweyDecimalSystem> items = new Dictionary<string, DeweyDecimalSystem>();
         public List<String> callNumbers = new List<string>();
         public List<String> correctOrder = new List<string>();
 
         public RandomGenerators randomGen = new RandomGenerators();
-        public Score score = new Score();
         public ElementFunctions elementFunctions = new ElementFunctions();
 
         public int correct;
@@ -29,16 +26,12 @@ namespace LibraryLogger
         public List<Card> scoreCards = new List<Card>();
 
         DispatcherTimer _timer;
-        TimeSpan _time;
 
-        public ReplaceBooksWindow(int difficulty)
-        {
+        public ReplaceBooksWindow(int difficulty) {
             InitializeComponent();
             this.difficulty = difficulty;
-            init(this.difficulty);
-        }
+            Init(this.difficulty);
 
-        public void init(int difficulty) {
             switch (difficulty) {
                 case 0:
                     matches = 5;
@@ -61,8 +54,10 @@ namespace LibraryLogger
                 default:
                     break;
             }
+        }
 
-            initTimer();
+        public void Init(int difficulty) {
+            InitTimer();
             items = randomGen.generateNumbersAndDescription(matches);
             for (int i = 0; i < items.Count; i++) {
                 callNumbers.Add(items.Keys.ElementAt(i));
@@ -74,14 +69,14 @@ namespace LibraryLogger
             elementFunctions.EnableDragAndDrop(ReplaceBooksList, callNumbers, (Style)FindResource("MaterialDesignListBoxItem"), (Style)FindResource("MaterialDesignToolVerticalToggleListBox"));
         }
 
-        public void initTimer() {
-            _time = TimeSpan.FromSeconds(timeCounter);
+        public void InitTimer() {
+            TimeSpan _time = TimeSpan.FromSeconds(timeCounter);
 
             _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate {
                 timer.Text = _time.ToString("c");
                 if (_time == TimeSpan.Zero) {
                     _timer.Stop();
-                    checkScore();
+                    CheckScore();
                     timer.Visibility = Visibility.Collapsed;
                 }
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
@@ -90,8 +85,10 @@ namespace LibraryLogger
             _timer.Start();
         }
 
-        public void checkScore() {
+        public void CheckScore() {
+            Score score = new Score();
             correct = 0;
+
             ReplaceBooksList.ItemContainerStyle = null;
             correctOrder.Sort();
             for (int i = 0; i < correctOrder.Count; i++) {
@@ -104,7 +101,7 @@ namespace LibraryLogger
                 }
             }
             correctBooksList.HorizontalContentAlignment = HorizontalAlignment.Center;
-            historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", scores.Count + 1, (Style)FindResource("MaterialDesignBody2TextBlock")));
+            historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", scores.Count, (Style)FindResource("MaterialDesignBody2TextBlock")));
 
             Double tempScore = (Double)correct / (Double)matches;
             tempScore *= 100;
@@ -118,7 +115,7 @@ namespace LibraryLogger
 
         private void CheckOrder_Click(object sender, RoutedEventArgs e) {
             _timer.IsEnabled = false;
-            checkScore();
+            CheckScore();
             correctBooksList.Width = 150;
         }
 
@@ -140,7 +137,7 @@ namespace LibraryLogger
             correctOrder = new List<string>();
             checkOrder.Visibility = Visibility.Visible;
             reset.Visibility = Visibility.Collapsed;
-            init(difficulty);
+            Init(difficulty);
         }
     }
 }

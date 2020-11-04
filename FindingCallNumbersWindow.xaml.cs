@@ -37,10 +37,7 @@ namespace LibraryLogger {
         public FindingCallNumbersWindow(int difficulty) {
             InitializeComponent();
             this.difficulty = difficulty;
-            Init();
-        }
 
-        public void Init() {
             switch (difficulty) {
                 case 0:
                     matches = 4;
@@ -63,123 +60,101 @@ namespace LibraryLogger {
                 default:
                     break;
             }
+
+            Init();
+        }
+
+        public void Init() {
             callNumbers = randomGen.FindingCallNumbers();
             answer = int.Parse(randomGen.GetRandomNumber(0, callNumbers.Count));
             question.Text = callNumbers.Values.ElementAt(answer).Low;
 
-
-
             firstPart.Text = callNumbers.Keys.ElementAt(answer).Substring(0, 1);
             secondPart.Text = callNumbers.Keys.ElementAt(answer).Substring(1, 1);
             thirdPart.Text = callNumbers.Keys.ElementAt(answer).Substring(2, 1);
-            LevelOne();
+            
+            Level("00 ", "00", 0, 0, 999);
             InitTimer();
         }
 
-        public void LevelOne() {
+        public void Level(String zeros, String randZeros, int substring, int tier, int nMax) {
             List<string> options = new List<string>();
             String newCall;
             DeweyDecimalSystem newOption = callNumbers.Values.ElementAt(answer);
-            options.Add("000 " + newOption.High);
+
+            options.Add(callNumbers.Keys.ElementAt(answer).Substring(tier, 1) + zeros + GetTierDescription(newOption, tier));
+
             while (options.Count < matches) {
-                newCall = randomGen.GetRandomNumber(0, 999);
+                string temp = callNumbers.Keys.ElementAt(answer).Substring(substring, 1) + randZeros;
+                int min = int.Parse(temp);
+                int max = min + nMax;
+                newCall = randomGen.GetRandomNumber(min, max);
                 newOption = randomGen.GenerateDescriptions(newCall.ToString());
-                string temp = newCall.ToString().Substring(0, 1) + "00 " + newOption.High;
-                if (!options.Contains(temp) && newOption.High != "") {
+                temp = newCall.ToString().Substring(tier, 1) + zeros + GetTierDescription(newOption, tier);
+                if (!options.Contains(temp) && GetTierDescription(newOption, tier) != "") {
                     options.Add(temp);
                 }
             }
             optionsListView.ItemsSource = options.OrderBy(a => Guid.NewGuid()).ToList();
         }
 
-        public void LevelTwo() {
-            List<string> options = new List<string>();
-            String newCall;
-            DeweyDecimalSystem newOption = callNumbers.Values.ElementAt(answer);
-            options.Add(callNumbers.Keys.ElementAt(answer).Substring(1,1) + "0 " + newOption.Mid);
-            while (options.Count < matches) {
-                string temp = callNumbers.Keys.ElementAt(answer).Substring(0, 1) + "00";
-                int min = int.Parse(temp);
-                int max = min + 99;
-                newCall = randomGen.GetRandomNumber(min, max);
-                newOption = randomGen.GenerateDescriptions(newCall.ToString());
-                temp = newCall.ToString().Substring(1, 1) + "0 " + newOption.Mid;
-                if (!options.Contains(temp) && newOption.Mid != "") {
-                    options.Add(temp);
-                }
+        public String GetTierDescription (DeweyDecimalSystem item, int tier) {
+            switch (tier) {
+                case 0:
+                    return item.High;
+                case 1:
+                    return item.Mid;
+                case 2:
+                    return item.Low;
+                default: return "";
             }
-            optionsListView.ItemsSource = options.OrderBy(a => Guid.NewGuid()).ToList();
         }
 
-        public void LevelThree() {
-            List<string> options = new List<string>();
-            String newCall;
-            DeweyDecimalSystem newOption = callNumbers.Values.ElementAt(answer);
-            options.Add(callNumbers.Keys.ElementAt(answer).Substring(2, 1) + " " + newOption.Low);
-            while (options.Count < matches) {
-                string temp = callNumbers.Keys.ElementAt(answer).Substring(1, 1) + "0";
-                int min = int.Parse(temp);
-                int max = min + 9;
-                newCall = randomGen.GetRandomNumber(min, max);
-                newOption = randomGen.GenerateDescriptions(newCall.ToString());
-                temp = newCall.ToString().Substring(2, 1) + " " + newOption.Low;
-                if (!options.Contains(temp) && newOption.Low != "") {
-                    options.Add(temp);
-                }
+        public void UpdateAnswers(String dewey, Card card) {
+            if (optionsListView.SelectedItem.ToString().Contains(dewey)) {
+                correct++;
+                card.Background = Brushes.DarkGreen;
+                card.BorderBrush = Brushes.DarkGreen;
+            } else {
+                card.Background = Brushes.DarkRed;
+                card.BorderBrush = Brushes.DarkRed;
             }
-            optionsListView.ItemsSource = options.OrderBy(a => Guid.NewGuid()).ToList();
         }
 
         public void CheckScore() {
             if (optionsListView.SelectedItem != null) {
                 instruction.Text = "Click on the correct answer";
                 instruction.Foreground = Brushes.White;
-                if (tier == 0) {
-                    if (optionsListView.SelectedItem.ToString().Contains(callNumbers.Values.ElementAt(answer).High)) {
-                        correct++;
-                        answer1.Background = Brushes.DarkGreen;
-                        answer1.BorderBrush = Brushes.DarkGreen;
-                    } else {
-                        answer1.Background = Brushes.DarkRed;
-                        answer1.BorderBrush = Brushes.DarkRed;
-                    }
-                    answer1.Visibility = Visibility.Visible;
-                    LevelTwo();
-                    tier++;
-                } else if (tier == 1) {
-                    if (optionsListView.SelectedItem.ToString().Contains(callNumbers.Values.ElementAt(answer).Mid)) {
-                        correct++;
-                        answer2.Background = Brushes.DarkGreen;
-                        answer2.BorderBrush = Brushes.DarkGreen;
-                    } else {
-                        answer2.Background = Brushes.DarkRed;
-                        answer2.BorderBrush = Brushes.DarkRed;
-                    }
-                    answer2.Visibility = Visibility.Visible;
-                    LevelThree();
-                    tier++;
-                } else {
-                    if (optionsListView.SelectedItem.ToString().Contains(callNumbers.Values.ElementAt(answer).Low)) {
-                        correct++;
-                        answer3.Background = Brushes.DarkGreen;
-                        answer3.BorderBrush = Brushes.DarkGreen;
-                    } else {
-                        answer3.Background = Brushes.DarkRed;
-                        answer3.BorderBrush = Brushes.DarkRed;
-                    }
-                    answer3.Visibility = Visibility.Visible;
-                    tier = 0;
-                    _timer.IsEnabled = false;
 
-                    historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/3. {score.getScoreStatement(correct, 3)}", scores.Count, (Style)FindResource("MaterialDesignBody2TextBlock")));
-                    Double tempScore = (Double)correct / (Double)3;
-                    tempScore *= 100;
-                    scores.Add((int)tempScore);
-                    averageScore.Text = $"{(int)scores.Average()}%";
-                    testsTaken.Text = scores.Count().ToString();
+                switch (tier) {
+                    case 0:
+                        UpdateAnswers(callNumbers.Values.ElementAt(answer).High, answer1);
+                        answer1.Visibility = Visibility.Visible;
+                        Level("0 ", "00", 0, 1, 99);
+                        tier++;
+                        break;
+                    case 1:
+                        UpdateAnswers(callNumbers.Values.ElementAt(answer).Mid, answer2);
+                        answer2.Visibility = Visibility.Visible;
+                        Level(" ", "0", 1, 2, 9);
+                        tier++;
+                        break;
+                    case 2:
+                        UpdateAnswers(callNumbers.Values.ElementAt(answer).Low, answer3);
+                        answer3.Visibility = Visibility.Visible;
+                        tier = 0;
+                        _timer.IsEnabled = false;
 
-                    checkOrder.Visibility = Visibility.Collapsed;
-                    reset.Visibility = Visibility.Visible;
+                        historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/3. {score.getScoreStatement(correct, 3)}", scores.Count, (Style)FindResource("MaterialDesignBody2TextBlock")));
+                        Double tempScore = (Double)correct / (Double)3;
+                        tempScore *= 100;
+                        scores.Add((int)tempScore);
+                        averageScore.Text = $"{(int)scores.Average()}%";
+                        testsTaken.Text = scores.Count().ToString();
+
+                        checkOrder.Visibility = Visibility.Collapsed;
+                        reset.Visibility = Visibility.Visible;
+                        break;
                 }
             } else {
                 instruction.Text = "Please select and answer from the list";

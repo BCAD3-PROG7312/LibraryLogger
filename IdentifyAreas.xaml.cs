@@ -41,10 +41,7 @@ namespace LibraryLogger
         public IdentifyAreas(int difficulty) {
             InitializeComponent();
             this.difficulty = difficulty;
-            Init();
-        }
 
-        public void Init() {
             switch (difficulty) {
                 case 0:
                     matches = 4;
@@ -69,6 +66,11 @@ namespace LibraryLogger
                     timeCounter = 300;
                     break;
             }
+
+            Init();
+        }
+
+        public void Init() {
             callNumbers = randomGen.generateNumbersAndDescription(matches + 3);
             switch (ListToggle.IsChecked) {
                 case false:
