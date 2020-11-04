@@ -454,8 +454,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Functions\DeweyDecimalSystem.cs" />
-    <Compile Include="Functions\ListboxFunctions.cs" />
+    <Compile Include="FindingCallNumbersWindow.xaml.cs">
+      <DependentUpon>FindingCallNumbersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeweyDecimalSystem.cs" />
+    <Compile Include="Functions\ElementFunctions.cs" />
     <Compile Include="Functions\RandomGenerators.cs" />
     <Compile Include="Functions\Score.cs" />
     <Compile Include="IdentifyAreas.xaml.cs">
@@ -464,6 +467,10 @@
     <Compile Include="ReplaceBooksWindow.xaml.cs">
       <DependentUpon>ReplaceBooksWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="FindingCallNumbersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="IdentifyAreas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -532,7 +539,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="checked.png" />
+    <Resource Include="media\checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="media\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="media\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.3.1.3\build\MaterialDesignThemes.targets')" />

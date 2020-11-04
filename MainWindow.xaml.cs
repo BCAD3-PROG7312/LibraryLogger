@@ -14,15 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LibraryLogger
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+namespace LibraryLogger {
+    public partial class MainWindow : Window {
+
+        public MainWindow(){
             InitializeComponent();
         }
 
@@ -62,22 +57,24 @@ namespace LibraryLogger
             this.Close();
         }
 
-        private void EasyBooks_Click(object sender, RoutedEventArgs e) {
-            /*ReplaceBooksWindow window = new ReplaceBooksWindow(2);
+        private void EasyFind_Click(object sender, RoutedEventArgs e) {
+            FindingCallNumbersWindow window = new FindingCallNumbersWindow(0);
             window.Show();
-            this.Close();*/
+            this.Close();
+        }
+        private void MediumFind_Click(object sender, RoutedEventArgs e) {
+            FindingCallNumbersWindow window = new FindingCallNumbersWindow(1);
+            window.Show();
+            this.Close();
         }
 
-        private void MediumBooks_Click(object sender, RoutedEventArgs e) {
-            /*ReplaceBooksWindow window = new ReplaceBooksWindow(2);
+        private void HardFind_Click(object sender, RoutedEventArgs e) {
+            FindingCallNumbersWindow window = new FindingCallNumbersWindow(2);
             window.Show();
-            this.Close();*/
+            this.Close();
         }
 
-        private void HardBooks_Click(object sender, RoutedEventArgs e) {
-            /*ReplaceBooksWindow window = new ReplaceBooksWindow(2);
-            window.Show();
-            this.Close();*/
+        private void CheckExpanded(object sender, RoutedEventArgs e) {
         }
     }
 }

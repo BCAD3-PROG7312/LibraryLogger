@@ -9,7 +9,7 @@ namespace LibraryLogger.Functions {
         public String getScoreStatement(int temp1, int temp2) {
             Double correct = Convert.ToDouble(temp1);
             Double matches = Convert.ToDouble(temp2);
-            int score = (int)((correct / matches) *10);
+            int score = (int)(correct / matches *10);
             String statement = "";
             switch (score) {
                 case 0: 

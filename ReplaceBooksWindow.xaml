@@ -17,42 +17,52 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <materialDesign:Card Name="gameCard" Padding="30" Margin="15" Height="auto">
-                <StackPanel>
-                    <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">
-                        Replace Books</TextBlock>
-                    <TextBlock Name="timer" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline3TextBlock}">
+                <Grid>
+                    <StackPanel Margin="0,0,0, 110">
+                        <TextBlock Text="Replace Books" Style="{DynamicResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">
+                            <TextBlock.Effect>
+                                <DropShadowEffect/>
+                            </TextBlock.Effect></TextBlock>
+                        <TextBlock Name="timer" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline3TextBlock}" Height="50">
                         00:00:00</TextBlock>
-                    <StackPanel Orientation="Horizontal" Width="300">
-                        <ListBox Width="150" Name="ReplaceBooksList" Style="{DynamicResource MaterialDesignListBox}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Center"/>
-                                </ItemsPanelTemplate></ListBox.ItemsPanel></ListBox>
-                        <ListBox Width="150" Name="correctBooksList" Style="{DynamicResource MaterialDesignListBox}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Center"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                        </ListBox>
-                    </StackPanel>
+                        <TextBlock Name="instruction" FontSize="10" Height="auto" HorizontalAlignment="Center">
+                        Drag and drop the items in the correct order</TextBlock>
 
-                    <Button Name="checkOrder"  Click="checkOrder_Click" BorderThickness="2"
-                            Margin="10,20,10,10" Width="250" Background="WhiteSmoke" BorderBrush="DarkSeaGreen">
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock VerticalAlignment="Center" Foreground="Green">CHECK ORDER</TextBlock>
-                            <Image Source="checked.png" Width="auto" Height="auto" VerticalAlignment="Center" />
+                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal" Width="300" HorizontalAlignment="Center">
+                            <ListBox Width="150" Name="ReplaceBooksList" HorizontalAlignment="Center"
+                                 Style="{DynamicResource MaterialDesignListBox}"></ListBox>
+                            <ListBox Width="0" Name="correctBooksList"
+                                 Style="{DynamicResource MaterialDesignListBox}"></ListBox>
                         </StackPanel>
-                    </Button>
-
-                    <Button x:Name="reset" Background="Yellow" Visibility="Collapsed" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="reset_Click_1"
-                            Width="200" Margin="10">
-                        RESET</Button>
-
-                    <Button x:Name="goBack" Foreground="Red" Background="White" Style="{DynamicResource MaterialDesignRaisedLightButton}" Click="goBack_Click_1"
-                            Width="200" Margin="10">
-                        BACK</Button>
-                </StackPanel>
+                    </StackPanel>
+                    <StackPanel x:Name="buttonPanel" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="auto" Height="auto">
+                        <Button Name="checkOrder" Click="CheckOrder_Click" BorderThickness="2" Margin="10,20,10,10" Width="250" Background="WhiteSmoke" BorderBrush="DarkSeaGreen">
+                            <Grid Width="210">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Green">CHECK ORDER</TextBlock>
+                                <Image Source="media/checked.png" Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Button>
+                        <StackPanel x:Name="TogglePanel" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <TextBlock Text="Call numbers" FontSize="11" Height="auto" VerticalAlignment="Center"/>
+                            <ToggleButton x:Name="ListToggle" Margin="5" Width="auto" Height="auto"/>
+                            <TextBlock Text="Descriptions" FontSize="11" Height="auto" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <Button x:Name="reset" Background="White" BorderBrush="Yellow" Visibility="Collapsed" Click="Reset_Click" Width="200" Margin="10,0,10,10"
+                    Style="{DynamicResource MaterialDesignRaisedLightButton}">
+                            <Grid Width="160">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black">REFRESH</TextBlock>
+                                <Image Source="media/refresh.png" Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="goBack" Foreground="Red" Background="White" Click="GoBack_Click" Width="200" Margin="10,5,10,10"
+                    Style="{DynamicResource MaterialDesignRaisedLightButton}">
+                            <Grid Width="160">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red">BACK</TextBlock>
+                                <Image Source="media/back.png" Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
             </materialDesign:Card>
             <StackPanel x:Name="scoresPanel" Width="300" Margin="0,15,15,15" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

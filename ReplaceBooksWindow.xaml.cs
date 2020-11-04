@@ -18,7 +18,7 @@ namespace LibraryLogger
 
         public RandomGenerators randomGen = new RandomGenerators();
         public Score score = new Score();
-        public ListboxFunctions listboxFunctions = new ListboxFunctions();
+        public ElementFunctions elementFunctions = new ElementFunctions();
 
         public int correct;
         public int matches;
@@ -42,25 +42,27 @@ namespace LibraryLogger
             switch (difficulty) {
                 case 0:
                     matches = 5;
-                    timeCounter = 300;
-                    scrollView.MaxHeight = 283;
-                    scrollView.Height = 282.5;
+                    timeCounter = 290;
+                    scrollView.MaxHeight = 303;
+                    scrollView.Height = 302.5;
                     break;
                 case 1:
                     matches = 10;
                     timeCounter = 150;
-                    scrollView.MaxHeight = 441;
-                    scrollView.Height = 440.5;
+                    scrollView.MaxHeight = 461;
+                    scrollView.Height = 460.5;
                     break;
                 case 2:
                     matches = 15;
                     timeCounter = 60;
-                    scrollView.MaxHeight = 599;
-                    scrollView.Height = 598.5;
+                    scrollView.MaxHeight = 619;
+                    scrollView.Height = 618.5;
                     break;
                 default:
                     matches = 5;
                     timeCounter = 300;
+                    scrollView.MaxHeight = 303;
+                    scrollView.Height = 302.5;
                     break;
             }
 
@@ -70,27 +72,10 @@ namespace LibraryLogger
                 callNumbers.Add(items.Keys.ElementAt(i));
                 correctOrder.Add(items.Keys.ElementAt(i));
             }
-
             ReplaceBooksList.ItemsSource = callNumbers;
+            ReplaceBooksList.HorizontalContentAlignment = HorizontalAlignment.Center; 
 
-            listboxFunctions.enableDragAndDrop(ReplaceBooksList, callNumbers, (Style)FindResource("MaterialDesignListBoxItem"));
-        }
-
-        public Card getScoreCard(String score) {
-            TextBlock text = new TextBlock();
-            text.HorizontalAlignment = HorizontalAlignment.Center;
-            text.Padding = new Thickness(10, 10, 10, 10);
-            text.Style = (Style)FindResource("MaterialDesignBody2TextBlock");
-            text.Text = score;
-            text.Foreground = Brushes.Black;
-            text.TextWrapping = TextWrapping.Wrap;
-
-            Card card = new Card();
-            card.Margin = new Thickness(5, 5, 5, 5);
-            card.Background = Brushes.WhiteSmoke;
-            card.Content = text;
-
-            return card;
+            elementFunctions.EnableDragAndDrop(ReplaceBooksList, callNumbers, (Style)FindResource("MaterialDesignListBoxItem"));
         }
 
         public void initTimer() {
@@ -122,8 +107,9 @@ namespace LibraryLogger
                     correctBooksList.Items.Add(new ListBoxItem { Content = correctOrder.ElementAt(i), Background = Brushes.DarkRed });
                 }
             }
+            correctBooksList.HorizontalContentAlignment = HorizontalAlignment.Center;
             scoresPanel.Visibility = Visibility.Visible;
-            historyPanel.Children.Add(getScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}"));
+            historyPanel.Children.Add(elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
 
             Double tempScore = (Double)correct / (Double)matches;
             tempScore *= 100;
@@ -135,11 +121,24 @@ namespace LibraryLogger
             reset.Visibility = Visibility.Visible;
         }
 
-        private void reset_Click_1(object sender, RoutedEventArgs e) {
+        private void CheckOrder_Click(object sender, RoutedEventArgs e) {
+            _timer.IsEnabled = false;
+            checkScore();
+            correctBooksList.Width = 150;
+        }
+
+        private void GoBack_Click(object sender, RoutedEventArgs e) {
+            MainWindow window = new MainWindow();
+            window.Show();
+            this.Close();
+        }
+
+        private void Reset_Click(object sender, RoutedEventArgs e) {
             ReplaceBooksList.ItemsSource = null;
             ReplaceBooksList.Items.Clear();
             correctBooksList.ItemsSource = null;
             correctBooksList.Items.Clear();
+            correctBooksList.Width = 0;
             callNumbers.Clear();
             callNumbers = new List<string>();
             correctOrder.Clear();
@@ -147,17 +146,6 @@ namespace LibraryLogger
             checkOrder.Visibility = Visibility.Visible;
             reset.Visibility = Visibility.Collapsed;
             init(difficulty);
-        }
-
-        private void goBack_Click_1(object sender, RoutedEventArgs e) {
-            MainWindow window = new MainWindow();
-            window.Show();
-            this.Close();
-        }
-
-        private void checkOrder_Click(object sender, RoutedEventArgs e) {
-            _timer.IsEnabled = false;
-            checkScore();
         }
     }
 }

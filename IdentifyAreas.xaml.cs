@@ -17,15 +17,14 @@ using System.Windows.Threading;
 
 namespace LibraryLogger
 {
-    public partial class IdentifyAreas : Window
-    {
+    public partial class IdentifyAreas : Window {
         public Dictionary<String, DeweyDecimalSystem> callNumbers = new Dictionary<string, DeweyDecimalSystem>();
         public List<string> values = new List<string>();
         public List<string> keys = new List<string>();
 
         public RandomGenerators randomGen = new RandomGenerators();
         public Score score = new Score();
-        public ListboxFunctions listboxFunctions = new ListboxFunctions();
+        public ElementFunctions elementFunctions = new ElementFunctions();
 
         public int correct;
         public int matches;
@@ -39,8 +38,7 @@ namespace LibraryLogger
         DispatcherTimer _timer;
         TimeSpan _time;
 
-        public IdentifyAreas(int difficulty)
-        {
+        public IdentifyAreas(int difficulty) {
             InitializeComponent();
             this.difficulty = difficulty;
             Init();
@@ -72,49 +70,31 @@ namespace LibraryLogger
                     break;
             }
             callNumbers = randomGen.generateNumbersAndDescription(matches + 3);
-            chooseList = randomGen.chooseList();
-            switch (chooseList) {
-                case 0:
+            switch (ListToggle.IsChecked) {
+                case false:
                     keys = callNumbers.Keys.Take(matches).ToList();
                     foreach (DeweyDecimalSystem item in callNumbers.Values) {
-                        values.Add(item.High1);
+                        values.Add(item.High);
                     }
                     values = values.OrderBy(a => Guid.NewGuid()).ToList();
 
                     FirstList.ItemsSource = keys;
                     SecondList.ItemsSource = values;
-                    listboxFunctions.enableDragAndDrop(SecondList, values, (Style)FindResource("MaterialDesignListBoxItem"));
+                    elementFunctions.EnableDragAndDrop(SecondList, values, (Style)FindResource("MaterialDesignListBoxItem"));
                     break;
-                case 1:
+                case true:
                     SecondList.ItemsSource = null;
                     keys = callNumbers.Keys.OrderBy(a => Guid.NewGuid()).ToList();
                     foreach (DeweyDecimalSystem item in callNumbers.Values) {
-                        values.Add(item.High1);
+                        values.Add(item.High);
                     }
 
                     FirstList.ItemsSource = values.Take(matches);
                     SecondList.ItemsSource = keys;
-                    listboxFunctions.enableDragAndDrop(SecondList, keys, (Style)FindResource("MaterialDesignListBoxItem"));
+                    elementFunctions.EnableDragAndDrop(SecondList, keys, (Style)FindResource("MaterialDesignListBoxItem"));
                     break;
             }
             InitTimer();
-        }
-
-        public Card GetScoreCard(String score) {
-            TextBlock text = new TextBlock();
-            text.HorizontalAlignment = HorizontalAlignment.Center;
-            text.Padding = new Thickness(10, 10, 10, 10);
-            text.Style = (Style)FindResource("MaterialDesignBody2TextBlock");
-            text.Text = score;
-            text.Foreground = Brushes.Black;
-            text.TextWrapping = TextWrapping.Wrap;
-
-            Card card = new Card();
-            card.Margin = new Thickness(5, 5, 5, 5);
-            card.Background = Brushes.WhiteSmoke;
-            card.Content = text;
-
-            return card;
         }
 
         public void InitTimer() {
@@ -134,34 +114,29 @@ namespace LibraryLogger
             _timer.Start();
         }
 
-        private void CheckColumns_Click(object sender, RoutedEventArgs e) {
-            _timer.IsEnabled = false;
-            CheckScore();
-        }
-
         public void CheckScore() {
             SecondList.ItemContainerStyle = null;
             SecondList.ItemsSource = null;
             correct = 0;
 
-            switch (chooseList) {
-                case 0:
+            switch (ListToggle.IsChecked) {
+                case false:
                     for (int i = 0; i < matches; i++) {
-                        if (values[i] == callNumbers.Values.ElementAt(i).High1) {
-                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i).High1, Background = Brushes.DarkGreen });
+                        if (values[i] == callNumbers.Values.ElementAt(i).High) {
+                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i).High, Background = Brushes.DarkGreen });
                             correct++;
                         } else {
-                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i).High1, Background = Brushes.DarkRed });
+                            SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Values.ElementAt(i).High, Background = Brushes.DarkRed });
                         }
                     }
                     break;
-                case 1:
+                case true:
                     List<String> temp = new List<String>();
                     foreach(String item in keys) {
-                        temp.Add(randomGen.generateDescriptions(item).High1);
+                        temp.Add(randomGen.GenerateDescriptions(item).High);
                     }
                     for (int i = 0; i < matches; i++) {
-                        if (temp[i] == callNumbers.Values.ElementAt(i).High1) {
+                        if (temp[i] == callNumbers.Values.ElementAt(i).High) {
                             SecondList.Items.Add(new ListBoxItem { Content = callNumbers.Keys.ElementAt(i), Background = Brushes.DarkGreen });
                             correct++;
                         } else {
@@ -171,7 +146,7 @@ namespace LibraryLogger
                     break;
             }
             scoresPanel.Visibility = Visibility.Visible;
-            historyPanel.Children.Add(GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}"));
+            historyPanel.Children.Add(elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
 
             Double tempScore = (Double)correct / (Double)matches;
             tempScore *= 100;
@@ -179,8 +154,14 @@ namespace LibraryLogger
             averageScore.Text = $"{(int)scores.Average()}%";
             testsTaken.Text = scores.Count().ToString();
 
-            checkColumns.Visibility = Visibility.Collapsed;
+            checkOrder.Visibility = Visibility.Collapsed;
             reset.Visibility = Visibility.Visible;
+        }
+
+        private void CheckOrder_Click(object sender, RoutedEventArgs e) {
+            _timer.IsEnabled = false;
+            TogglePanel.Visibility = Visibility.Visible;
+            CheckScore();
         }
 
         private void GoBack_Click(object sender, RoutedEventArgs e) {
@@ -198,8 +179,9 @@ namespace LibraryLogger
             callNumbers = null;
             keys = new List<string>();
             values = new List<string>();
-            checkColumns.Visibility = Visibility.Visible;
+            checkOrder.Visibility = Visibility.Visible;
             reset.Visibility = Visibility.Collapsed;
+            TogglePanel.Visibility = Visibility.Collapsed;
             Init();
         }
     }

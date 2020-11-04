@@ -21,7 +21,7 @@
                     <TextBlock  Style="{DynamicResource MaterialDesignHeadline3TextBlock}"
                                Margin="0,0,0,20" HorizontalAlignment="Center">
                         LibrarianLogger</TextBlock>
-                    <Expander Style="{DynamicResource MaterialDesignExpander}">
+                    <Expander Name="Replace" Style="{DynamicResource MaterialDesignExpander}" Expanded="CheckExpanded">
                         <Expander.Header>Replace Books</Expander.Header>
                         <StackPanel>
                             <Button Name="EasyReplace" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
@@ -35,7 +35,7 @@
                                 Hard</Button>
                         </StackPanel>
                     </Expander>
-                    <Expander Style="{DynamicResource MaterialDesignExpander}">
+                    <Expander Name="Identify" Style="{DynamicResource MaterialDesignExpander}" Expanded="CheckExpanded">
                         <Expander.Header>Identify Area</Expander.Header>
                         <StackPanel>
                             <Button Name="EasyIdentify" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
@@ -50,17 +50,17 @@
                         </StackPanel>
                     </Expander>
 
-                    <Expander Style="{DynamicResource MaterialDesignExpander}" IsEnabled="False">
-                        <Expander.Header>Replacing Books</Expander.Header>
+                    <Expander Name="Find" Style="{DynamicResource MaterialDesignExpander}" Expanded="CheckExpanded">
+                        <Expander.Header>FindingCallNumbers</Expander.Header>
                         <StackPanel>
-                            <Button Name="EasyBooks" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
-                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="EasyBooks_Click">
+                            <Button Name="EasyFind" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="EasyFind_Click">
                                 Easy</Button>
-                            <Button Name="MediumBooks" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
-                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="MediumBooks_Click">
+                            <Button Name="MediumFind" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="MediumFind_Click">
                                 Medium</Button>
-                            <Button Name="HardBooks" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
-                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="HardBooks_Click">
+                            <Button Name="HardFind" Style="{DynamicResource MaterialDesignRaisedDarkButton}"
+                            FontSize="20" Padding="10" Margin="10" Height="auto" Click="HardFind_Click">
                                 Hard</Button>
                         </StackPanel>
                     </Expander>
