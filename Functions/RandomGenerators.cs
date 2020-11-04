@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace LibraryLogger.Functions
-{
-    public class RandomGenerators{
+namespace LibraryLogger.Functions {
+    public class RandomGenerators {
         public Random random = new Random();
         Dictionary<String, DeweyDecimalSystem> deweyItems;
 
@@ -53,7 +52,7 @@ namespace LibraryLogger.Functions
             for (int i = 0; i < deweyItems.Count; i++) {
                 DeweyDecimalSystem item = deweyItems.Values.ElementAt(i);
                 if (item.Low == "" || item.Mid == "") {
-                   deweyItems.Remove(deweyItems.Keys.ElementAt(i));
+                    deweyItems.Remove(deweyItems.Keys.ElementAt(i));
                 }
             }
             return deweyItems;
@@ -80,7 +79,7 @@ namespace LibraryLogger.Functions
                 }
 
                 callNumber = (part1 + "." + part2 + " " + part3);
-                DeweyDecimalSystem temp = GenerateDescriptions(callNumber); 
+                DeweyDecimalSystem temp = GenerateDescriptions(callNumber);
                 deweyItems.Add(callNumber, temp);
             }
             return deweyItems;
@@ -128,12 +127,12 @@ namespace LibraryLogger.Functions
                 case 6:
                     item.High = "Computer science, information & general works";
                     item.Mid = "Computer science, knowledge & systems";
-                    item.Low = "Special computer methods"; 
+                    item.Low = "Special computer methods";
                     return item;
                 case int n when (n >= 7 && n <= 9):
                     item.High = "Computer science, information & general works";
                     item.Mid = "Computer science, knowledge & systems";
-                    item.Low = ""; 
+                    item.Low = "";
                     return item;
                 case 10:
                     item.High = "Computer science, information & general works";
@@ -593,5 +592,4 @@ namespace LibraryLogger.Functions
             }
         }
     }
-
 }

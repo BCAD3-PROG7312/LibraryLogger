@@ -457,6 +457,7 @@
     <Compile Include="FindingCallNumbersWindow.xaml.cs">
       <DependentUpon>FindingCallNumbersWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\RandomGenerators.cs" />
     <Compile Include="Models\DeweyDecimalSystem.cs" />
     <Compile Include="Functions\ElementFunctions.cs" />
     <Compile Include="Functions\Score.cs" />
