@@ -43,26 +43,22 @@ namespace LibraryLogger
                 case 0:
                     matches = 5;
                     timeCounter = 290;
-                    scrollView.MaxHeight = 303;
-                    scrollView.Height = 302.5;
+                    scrollView.MaxHeight = 313;
+                    scrollView.Height = 312.5;
                     break;
                 case 1:
                     matches = 10;
                     timeCounter = 150;
-                    scrollView.MaxHeight = 461;
-                    scrollView.Height = 460.5;
+                    scrollView.MaxHeight = 471;
+                    scrollView.Height = 470.5;
                     break;
                 case 2:
                     matches = 15;
                     timeCounter = 60;
-                    scrollView.MaxHeight = 619;
-                    scrollView.Height = 618.5;
+                    scrollView.MaxHeight = 629;
+                    scrollView.Height = 628.5;
                     break;
                 default:
-                    matches = 5;
-                    timeCounter = 300;
-                    scrollView.MaxHeight = 303;
-                    scrollView.Height = 302.5;
                     break;
             }
 
@@ -75,7 +71,7 @@ namespace LibraryLogger
             ReplaceBooksList.ItemsSource = callNumbers;
             ReplaceBooksList.HorizontalContentAlignment = HorizontalAlignment.Center; 
 
-            elementFunctions.EnableDragAndDrop(ReplaceBooksList, callNumbers, (Style)FindResource("MaterialDesignListBoxItem"));
+            elementFunctions.EnableDragAndDrop(ReplaceBooksList, callNumbers, (Style)FindResource("MaterialDesignListBoxItem"), (Style)FindResource("MaterialDesignToolVerticalToggleListBox"));
         }
 
         public void initTimer() {
@@ -108,8 +104,7 @@ namespace LibraryLogger
                 }
             }
             correctBooksList.HorizontalContentAlignment = HorizontalAlignment.Center;
-            scoresPanel.Visibility = Visibility.Visible;
-            historyPanel.Children.Add(elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
+            historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
 
             Double tempScore = (Double)correct / (Double)matches;
             tempScore *= 100;

@@ -80,7 +80,7 @@ namespace LibraryLogger
 
                     FirstList.ItemsSource = keys;
                     SecondList.ItemsSource = values;
-                    elementFunctions.EnableDragAndDrop(SecondList, values, (Style)FindResource("MaterialDesignListBoxItem"));
+                    elementFunctions.EnableDragAndDrop(SecondList, values, (Style)FindResource("MaterialDesignListBoxItem"), (Style)FindResource("MaterialDesignToolToggleFlatListBox"));
                     break;
                 case true:
                     SecondList.ItemsSource = null;
@@ -91,7 +91,7 @@ namespace LibraryLogger
 
                     FirstList.ItemsSource = values.Take(matches);
                     SecondList.ItemsSource = keys;
-                    elementFunctions.EnableDragAndDrop(SecondList, keys, (Style)FindResource("MaterialDesignListBoxItem"));
+                    elementFunctions.EnableDragAndDrop(SecondList, keys, (Style)FindResource("MaterialDesignListBoxItem"), (Style)FindResource("MaterialDesignToolToggleFlatListBox"));
                     break;
             }
             InitTimer();
@@ -145,8 +145,7 @@ namespace LibraryLogger
                     }
                     break;
             }
-            scoresPanel.Visibility = Visibility.Visible;
-            historyPanel.Children.Add(elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
+            historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
 
             Double tempScore = (Double)correct / (Double)matches;
             tempScore *= 100;

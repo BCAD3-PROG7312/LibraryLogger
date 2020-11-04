@@ -45,24 +45,22 @@ namespace LibraryLogger {
                 case 0:
                     matches = 4;
                     timeCounter = 300;
-                    scrollView.MaxHeight = 296;
-                    scrollView.Height = 295.5;
+                    scrollView.MaxHeight = 306;
+                    scrollView.Height = 305.5;
                     break;
                 case 1:
                     matches = 5;
                     timeCounter = 150;
-                    scrollView.MaxHeight = 391;
-                    scrollView.Height = 390.5;
+                    scrollView.MaxHeight = 401;
+                    scrollView.Height = 400.5;
                     break;
                 case 2:
                     matches = 6;
                     timeCounter = 60;
-                    scrollView.MaxHeight = 486;
-                    scrollView.Height = 485.5;
+                    scrollView.MaxHeight = 496;
+                    scrollView.Height = 495.5;
                     break;
                 default:
-                    matches = 4;
-                    timeCounter = 300;
                     break;
             }
             callNumbers = randomGen.FindingCallNumbers();
@@ -82,10 +80,11 @@ namespace LibraryLogger {
             DeweyDecimalSystem newOption = callNumbers.Values.ElementAt(answer);
             options.Add("000 " + newOption.High);
             while (options.Count < matches) {
-                newCall = randomGen.GetRandomNumber(0, 1000);
+                newCall = randomGen.GetRandomNumber(0, 999);
                 newOption = randomGen.GenerateDescriptions(newCall.ToString());
-                if (!options.Contains(newOption.High)) {
-                    options.Add(newCall.ToString().Substring(0, 1) + "00 " + newOption.High);
+                string temp = newCall.ToString().Substring(0, 1) + "00 " + newOption.High;
+                if (!options.Contains(temp) && newOption.High != "") {
+                    options.Add(temp);
                 }
             }
             optionsListView.ItemsSource = options.OrderBy(a => Guid.NewGuid()).ToList();
@@ -97,10 +96,14 @@ namespace LibraryLogger {
             DeweyDecimalSystem newOption = callNumbers.Values.ElementAt(answer);
             options.Add(callNumbers.Keys.ElementAt(answer).Substring(1,1) + "0 " + newOption.Mid);
             while (options.Count < matches) {
-                newCall = randomGen.GetRandomNumber(0, 100);
+                string temp = callNumbers.Keys.ElementAt(answer).Substring(0, 1) + "00";
+                int min = int.Parse(temp);
+                int max = min + 99;
+                newCall = randomGen.GetRandomNumber(min, max);
                 newOption = randomGen.GenerateDescriptions(newCall.ToString());
-                if (!options.Contains(newOption.Mid) && newOption.Mid != "") {
-                   options.Add(newCall.ToString().Substring(1, 1) + "0 " + newOption.Mid);
+                temp = newCall.ToString().Substring(1, 1) + "0 " + newOption.Mid;
+                if (!options.Contains(temp) && newOption.Mid != "") {
+                    options.Add(temp);
                 }
             }
             optionsListView.ItemsSource = options.OrderBy(a => Guid.NewGuid()).ToList();
@@ -117,8 +120,9 @@ namespace LibraryLogger {
                 int max = min + 9;
                 newCall = randomGen.GetRandomNumber(min, max);
                 newOption = randomGen.GenerateDescriptions(newCall.ToString());
-                if (!options.Contains(newOption.Low) && newOption.Low != "") {
-                    options.Add(newCall.ToString().Substring(2, 1) + " " + newOption.Low);
+                temp = newCall.ToString().Substring(2, 1) + " " + newOption.Low;
+                if (!options.Contains(temp) && newOption.Low != "") {
+                    options.Add(temp);
                 }
             }
             optionsListView.ItemsSource = options.OrderBy(a => Guid.NewGuid()).ToList();
@@ -163,9 +167,9 @@ namespace LibraryLogger {
                     }
                     answer3.Visibility = Visibility.Visible;
                     tier = 0;
-                    scoresPanel.Visibility = Visibility.Visible;
-                    historyPanel.Children.Add(elementFunctions.GetScoreCard($"{correct}/3. {score.getScoreStatement(correct, 3)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
+                    _timer.IsEnabled = false;
 
+                    historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/3. {score.getScoreStatement(correct, 3)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
                     Double tempScore = (Double)correct / (Double)3;
                     tempScore *= 100;
                     scores.Add((int)tempScore);
@@ -214,7 +218,6 @@ namespace LibraryLogger {
         }
 
         private void CheckOrder_Click(object sender, RoutedEventArgs e) {
-            _timer.IsEnabled = false;
             CheckScore();
         }
 

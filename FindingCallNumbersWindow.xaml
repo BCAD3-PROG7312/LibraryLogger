@@ -82,18 +82,18 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
-            <StackPanel x:Name="scoresPanel" Width="300" Margin="0,15,15,15" Visibility="Collapsed">
+            <StackPanel x:Name="scoresPanel" Width="300" Margin="0,15,15,15">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <materialDesign:Card Background="GhostWhite" Width="80" Height="80" Padding="8" Margin="10,0">
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="TESTS" HorizontalAlignment="Center" FontSize="10" Foreground="Black"/>
-                            <TextBlock x:Name="testsTaken" HorizontalAlignment="Center" Foreground="Black" Text="20" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                            <TextBlock x:Name="testsTaken" HorizontalAlignment="Center" Foreground="Black" Text="0" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                         </StackPanel>
                     </materialDesign:Card>
                     <materialDesign:Card Background="GhostWhite" Width="80" Height="80" Padding="8" Margin="10,0">
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="AVERAGE" HorizontalAlignment="Center" FontSize="10" Foreground="Black"/>
-                            <TextBlock x:Name="averageScore" HorizontalAlignment="Center" Foreground="Black" Text="20%" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                            <TextBlock x:Name="averageScore" HorizontalAlignment="Center" Foreground="Black" Text="0" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                         </StackPanel>
                     </materialDesign:Card>
                 </StackPanel>

@@ -30,21 +30,10 @@
                         Drag and drop the items in the correct order</TextBlock>
 
                         <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-                            <ListBox Width="auto" x:Name="FirstList" Style="{DynamicResource MaterialDesignListBox}">
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel HorizontalAlignment="Center"/>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                            </ListBox>
+                            <ListBox Width="auto" x:Name="FirstList" Style="{DynamicResource MaterialDesignListBox}"/>
 
-                            <ListBox Width="auto" x:Name="SecondList" Style="{DynamicResource MaterialDesignListBox}" UseLayoutRounding="False">
-                                <ListBox.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel HorizontalAlignment="Center"/>
-                                    </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>
-                            </ListBox>
+                            <ListBox Width="auto" Name="SecondList" HorizontalAlignment="Center" Background="#FF212121"
+                                 Style="{DynamicResource MaterialDesignListBox}"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -77,18 +66,18 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
-            <StackPanel x:Name="scoresPanel" Width="300" Margin="0,15,15,15" Visibility="Collapsed">
+            <StackPanel x:Name="scoresPanel" Width="300" Margin="0,15,15,15">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <materialDesign:Card Background="GhostWhite" Width="80" Height="80" Padding="8" Margin="10,0">
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="TESTS" HorizontalAlignment="Center" FontSize="10" Foreground="Black"/>
-                            <TextBlock x:Name="testsTaken" HorizontalAlignment="Center" Foreground="Black" Text="20" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                            <TextBlock x:Name="testsTaken" HorizontalAlignment="Center" Foreground="Black" Text="0" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                         </StackPanel>
                     </materialDesign:Card>
                     <materialDesign:Card Background="GhostWhite" Width="80" Height="80" Padding="8" Margin="10,0">
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="AVERAGE" HorizontalAlignment="Center" FontSize="10" Foreground="Black"/>
-                            <TextBlock x:Name="averageScore" HorizontalAlignment="Center" Foreground="Black" Text="20%" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
+                            <TextBlock x:Name="averageScore" HorizontalAlignment="Center" Foreground="Black" Text="0" Style="{DynamicResource MaterialDesignHeadline6TextBlock}"/>
                         </StackPanel>
                     </materialDesign:Card>
                 </StackPanel>
@@ -182,7 +171,5 @@
                 </materialDesign:Card>
             </StackPanel>
         </StackPanel>
-
-        
     </Grid>
 </Window>

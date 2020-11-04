@@ -20,13 +20,16 @@ namespace LibraryLogger.Functions {
     public class ElementFunctions {
         public ListBox temp;
         public List<String> tempList = new List<String>();
-        public void EnableDragAndDrop(ListBox listBox, List<String> vs, Style listBoxItem) {
+        public void EnableDragAndDrop(ListBox listBox, List<String> vs, Style listBoxItemStyle, Style listStyle) {
+            Style listboxStyle = new Style(typeof(ListBox));
             Style itemContainerStyle = new Style(typeof(ListBoxItem));
             itemContainerStyle.Setters.Add(new Setter(ListBoxItem.AllowDropProperty, true));
             itemContainerStyle.Setters.Add(new EventSetter(ListBoxItem.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(PreviewMouseLeftButtonDown)));
             itemContainerStyle.Setters.Add(new EventSetter(ListBoxItem.DropEvent, new DragEventHandler(DropMethod)));
 
-            itemContainerStyle.BasedOn = listBoxItem;
+            itemContainerStyle.BasedOn = listBoxItemStyle;
+            listboxStyle.BasedOn = listStyle;
+            //listBox.Style = listboxStyle;
             listBox.ItemContainerStyle = itemContainerStyle;
             temp = listBox;
             tempList = vs;
@@ -71,7 +74,7 @@ namespace LibraryLogger.Functions {
 
             Card card = new Card();
             card.Margin = new Thickness(5, 5, 5, 5);
-            card.Background = Brushes.WhiteSmoke;
+            card.Background = Brushes.White;
             card.Content = text;
 
             return card;
