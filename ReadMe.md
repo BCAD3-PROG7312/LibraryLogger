@@ -1,6 +1,6 @@
 <h1>Library Logger</h1>
 
-https://cdn.rawgit.com/WayneWhitehead/BCAD3-PROG7312/master/media/home_s.png
+<img src="https://cdn.rawgit.com/WayneWhitehead/BCAD3-PROG7312/master/media/home_s.png"/>
 
 First game involves the user ordering columns in the correct order according to the Dewey Decimal System.
 Second game involves the user getting offered codes to match to the columns with the correct descriptions.
