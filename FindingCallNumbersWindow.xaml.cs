@@ -67,6 +67,8 @@ namespace LibraryLogger {
             answer = int.Parse(randomGen.GetRandomNumber(0, callNumbers.Count));
             question.Text = callNumbers.Values.ElementAt(answer).Low;
 
+
+
             firstPart.Text = callNumbers.Keys.ElementAt(answer).Substring(0, 1);
             secondPart.Text = callNumbers.Keys.ElementAt(answer).Substring(1, 1);
             thirdPart.Text = callNumbers.Keys.ElementAt(answer).Substring(2, 1);
@@ -169,7 +171,7 @@ namespace LibraryLogger {
                     tier = 0;
                     _timer.IsEnabled = false;
 
-                    historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/3. {score.getScoreStatement(correct, 3)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
+                    historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/3. {score.getScoreStatement(correct, 3)}", scores.Count, (Style)FindResource("MaterialDesignBody2TextBlock")));
                     Double tempScore = (Double)correct / (Double)3;
                     tempScore *= 100;
                     scores.Add((int)tempScore);

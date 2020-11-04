@@ -44,19 +44,19 @@ namespace LibraryLogger
                     matches = 5;
                     timeCounter = 290;
                     scrollView.MaxHeight = 313;
-                    scrollView.Height = 312.5;
+                    scrollView.Height = 313;
                     break;
                 case 1:
                     matches = 10;
                     timeCounter = 150;
                     scrollView.MaxHeight = 471;
-                    scrollView.Height = 470.5;
+                    scrollView.Height = 471;
                     break;
                 case 2:
                     matches = 15;
                     timeCounter = 60;
                     scrollView.MaxHeight = 629;
-                    scrollView.Height = 628.5;
+                    scrollView.Height = 629;
                     break;
                 default:
                     break;
@@ -104,7 +104,7 @@ namespace LibraryLogger
                 }
             }
             correctBooksList.HorizontalContentAlignment = HorizontalAlignment.Center;
-            historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", (Style)FindResource("MaterialDesignBody2TextBlock")));
+            historyPanel.Children.Insert(0, elementFunctions.GetScoreCard($"{correct}/{matches}. {score.getScoreStatement(correct, matches)}", scores.Count + 1, (Style)FindResource("MaterialDesignBody2TextBlock")));
 
             Double tempScore = (Double)correct / (Double)matches;
             tempScore *= 100;

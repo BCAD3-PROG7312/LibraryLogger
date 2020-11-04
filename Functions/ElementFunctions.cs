@@ -63,19 +63,36 @@ namespace LibraryLogger.Functions {
             temp.Items.Refresh();
         }
 
-        public Card GetScoreCard(String score, Style style) {
-            TextBlock text = new TextBlock();
-            text.HorizontalAlignment = HorizontalAlignment.Center;
-            text.Padding = new Thickness(10, 10, 10, 10);
-            text.Style = style;
-            text.Text = score;
-            text.Foreground = Brushes.Black;
-            text.TextWrapping = TextWrapping.Wrap;
+        public Card GetScoreCard(String score, int no, Style style) {
+            TextBlock text = new TextBlock {
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Padding = new Thickness(10),
+                Style = style,
+                Text = score,
+                Foreground = Brushes.Black,
+                TextWrapping = TextWrapping.Wrap
+            };
 
-            Card card = new Card();
-            card.Margin = new Thickness(5, 5, 5, 5);
-            card.Background = Brushes.White;
-            card.Content = text;
+            TextBlock itemNo = new TextBlock {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Center,
+                Padding = new Thickness(5),
+                Style = style,
+                Text = no + "#",
+                FontSize = 10,
+                Foreground = Brushes.DarkGray,
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            Grid grid = new Grid {
+                Children = {text, itemNo}
+            };
+
+            Card card = new Card {
+                Margin = new Thickness(5),
+                Background = Brushes.WhiteSmoke,
+                Content = grid
+            };
 
             return card;
         }
